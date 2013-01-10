@@ -22,9 +22,9 @@ makeForceLayout = function(data) {
   var circle, force, height, label, link, node, r, svg, width;
   width = $("#network").width();
   height = $("#network").height();
-  r = 5;
+  r = 4;
   makeLinks(data);
-  force = d3.layout.force().gravity(0.1).charge(-135).linkDistance(function(d) {
+  force = d3.layout.force().gravity(0.1).charge(-185).linkDistance(function(d) {
     if (d.target.id === 1) {
       return 150;
     } else if (d.target.id === 2) {
@@ -37,7 +37,8 @@ makeForceLayout = function(data) {
   link = svg.selectAll("line.link").data(dn.links).enter().append("line").attr("class", "link").style({
     "stroke-width": 1,
     "stroke": "#2D72D9",
-    "stroke-dasharray": "2, 3"
+    "stroke-dasharray": "2, 3",
+    opacity: 0.5
   });
   node = svg.selectAll(".node").data(data).enter().append("svg:g").attr("class", "node").attr("id", function(d) {
     return d.id;
@@ -45,8 +46,9 @@ makeForceLayout = function(data) {
   label = node.append("g").attr("class", "label").append("svg:text").text(function(d) {
     return d.display_name;
   }).attr({
-    "text-anchor": "middle",
-    "dy": r * 2.5
+    "text-anchor": "start",
+    "dx": r * 2.5,
+    "dy": ".4em"
   });
   circle = node.append("svg:circle").attr("r", r).style({
     "fill": function(d) {

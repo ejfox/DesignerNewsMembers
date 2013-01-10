@@ -16,13 +16,13 @@ makeForceLayout = (data) ->
 	width = $("#network").width();
 	height = $("#network").height();
 
-	r = 5
+	r = 4
 
 	makeLinks(data)
 
 	force = d3.layout.force()
 		.gravity(0.1)
-		.charge(-135)
+		.charge(-185)
 		.linkDistance((d) ->
 			if d.target.id is 1
 				150
@@ -46,6 +46,7 @@ makeForceLayout = (data) ->
 			"stroke-width": 1
 			"stroke": "#2D72D9"
 			"stroke-dasharray": "2, 3"
+			opacity: 0.5
 			})
 
 	node = svg.selectAll(".node")
@@ -61,8 +62,9 @@ makeForceLayout = (data) ->
 		d.display_name;
 	)
 	.attr({
-		"text-anchor": "middle",
-		"dy": r*2.5
+		"text-anchor": "start",
+		"dx": r*2.5
+		"dy": ".4em"
 	})
 
 
