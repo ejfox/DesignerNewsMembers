@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8"/>
+	<title></title>
+	<!-- Place favicon.ico and apple-touch-icon.png in the root of your domain and delete these references -->
+	<link rel="shortcut icon" href="/favicon.ico">
+	<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link rel="stylesheet" media="all" href=""/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<!-- Adding "maximum-scale=1" fixes the Mobile Safari auto-zoom bug: http://filamentgroup.com/examples/iosScaleBug/ -->
+
+	<!-- LESS framework stylesheet
+	Should be compiled from style.less
+	I use http://wearekiss.com/simpless for auto-compiling on save
+	-->
+	<link rel="stylesheet" href="style.css" type="text/css" media="screen" title="Primary Stylesheet" charset="utf-8">
+
+	<!-- Bring in jQuery first, lots of other stuff depends on it -->
+	<script src="js/jquery-1.7.1.min.js" type="text/javascript" charset="utf-8"></script>
+
+    <!-- Add Retina.js for retina support
+    <script src="js/retina.js" type="text/javascript" charset="utf-8"></script> -->
+
+	<!-- And underscore | http://documentcloud.github.com/underscore/ -->
+	<script src="js/underscore-min.js" type="text/javascript" charset="utf-8"></script>
+
+	<!-- And D3 | https://github.com/mbostock/d3/wiki/API-Reference -->
+	<script src="http://d3js.org/d3.v3.min.js"></script>
+
+</head>
+<body>
+<div id="container">
+	<header id="title">
+		<h1>Designer News</h1>
+	</header>
+
+	<section id="content" style="font-size: 12px;">
+		<svg id="network"></svg>
+	</section>
+
+</div>
+
+<script src="js/dn_viz.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" charset="utf-8">
+makeDNViz();
+</script>
+
+</body>
+</html>
