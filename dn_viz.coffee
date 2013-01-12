@@ -16,18 +16,18 @@ makeForceLayout = (data) ->
 	width = $("#network").width();
 	height = $("#network").height();
 
-	r = 6
+	r = 7
 
 	makeLinks(data)
 
 	force = d3.layout.force()
-		.gravity(0.35)
+		.gravity(0.5)
 		.charge((d) ->
-			defaultCharge = -200
+			defaultCharge = -330
 			console.log (d)
 			if d.invited_by_id isnt null
 				if d.invited_by_id is 2
-					-500
+					-540
 				else
 					defaultCharge
 			else
@@ -35,15 +35,15 @@ makeForceLayout = (data) ->
 		)
 		.linkDistance((d) ->
 			if d.target.id is 1
-				80
+				50
 			else if d.target.id is 2
-				80
+				50
 			else
 				2
 		)
 		.linkStrength(1.6)
-		.theta(.6)
-		.friction(0.85)
+		.theta(.5)
+		.friction(0.6)
 		.size([width, height])
 
 	svg = d3.select("#network")
@@ -73,7 +73,7 @@ makeForceLayout = (data) ->
 	label = node.append("g").attr("class", "label")
 	.append("svg:text")
 	.text((d) ->
-		d.display_name;
+		d.display_name + " ("+d.id+")";
 	)
 	.attr({
 		"text-anchor": "start",

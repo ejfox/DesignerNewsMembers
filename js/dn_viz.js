@@ -22,15 +22,15 @@ makeForceLayout = function(data) {
   var circle, force, height, label, link, node, r, svg, width;
   width = $("#network").width();
   height = $("#network").height();
-  r = 6;
+  r = 7;
   makeLinks(data);
-  force = d3.layout.force().gravity(0.35).charge(function(d) {
+  force = d3.layout.force().gravity(0.5).charge(function(d) {
     var defaultCharge;
-    defaultCharge = -200;
+    defaultCharge = -330;
     console.log(d);
     if (d.invited_by_id !== null) {
       if (d.invited_by_id === 2) {
-        return -500;
+        return -540;
       } else {
         return defaultCharge;
       }
@@ -39,13 +39,13 @@ makeForceLayout = function(data) {
     }
   }).linkDistance(function(d) {
     if (d.target.id === 1) {
-      return 80;
+      return 50;
     } else if (d.target.id === 2) {
-      return 80;
+      return 50;
     } else {
       return 2;
     }
-  }).linkStrength(1.6).theta(.6).friction(0.85).size([width, height]);
+  }).linkStrength(1.6).theta(.5).friction(0.6).size([width, height]);
   svg = d3.select("#network");
   link = svg.selectAll("line.link").data(dn.links).enter().append("line").attr("class", "link").style({
     "stroke-width": 1,
@@ -59,7 +59,7 @@ makeForceLayout = function(data) {
     return window.open("https://news.layervault.com/u/" + d.id);
   });
   label = node.append("g").attr("class", "label").append("svg:text").text(function(d) {
-    return d.display_name;
+    return d.display_name + " (" + d.id + ")";
   }).attr({
     "text-anchor": "start",
     "dx": r * 2.5,
