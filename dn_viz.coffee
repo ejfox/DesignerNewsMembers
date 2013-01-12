@@ -3,8 +3,8 @@ dn.nodes = []
 dn.links = []
 
 makeDNViz = () ->
-	d3.json("json/dn_tree.flat.r1.json", (error, json) ->
-	#d3.json("https://news.layervault.com/u/tree_flat.json", (error, json) ->
+	#d3.json("json/dn_tree.flat.r1.json", (error, json) ->
+	d3.json("https://news.layervault.com/u/tree_flat.json", (error, json) ->
 		if(error)
 			console.warn("ERROR", error);
 
