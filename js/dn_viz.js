@@ -8,7 +8,7 @@ dn.nodes = [];
 dn.links = [];
 
 makeDNViz = function() {
-  return d3.json("json/dn_tree.flat.r1.json", function(error, json) {
+  return d3.json("https://news.layervault.com/u/tree_flat.json", function(error, json) {
     var data;
     if (error) {
       console.warn("ERROR", error);
