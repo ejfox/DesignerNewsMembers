@@ -16,24 +16,34 @@ makeForceLayout = (data) ->
 	width = $("#network").width();
 	height = $("#network").height();
 
-	r = 4
+	r = 6
 
 	makeLinks(data)
 
 	force = d3.layout.force()
-		.gravity(0.1)
-		.charge(-185)
+		.gravity(0.35)
+		.charge((d) ->
+			defaultCharge = -185
+			console.log (d)
+			if d.invited_by_id isnt null
+				if d.invited_by_id is 2
+					-500
+				else
+					defaultCharge
+			else
+				defaultCharge
+		)
 		.linkDistance((d) ->
 			if d.target.id is 1
-				150
+				80
 			else if d.target.id is 2
-				120
+				80
 			else
-				10
+				2
 		)
-		.linkStrength(1.3)
+		.linkStrength(1.6)
 		.theta(.6)
-		.friction(0.65)
+		.friction(0.85)
 		.size([width, height])
 
 	svg = d3.select("#network")
@@ -53,7 +63,7 @@ makeForceLayout = (data) ->
 		.data(data)
 		.enter().append("svg:g")
 		.attr("class", "node")
-		.attr("id", (d) -> d.id)
+		.attr("id", (d) -> d.id - 1)
 		.call(force.drag)
 
 	label = node.append("g").attr("class", "label")
@@ -65,7 +75,9 @@ makeForceLayout = (data) ->
 		"text-anchor": "start",
 		"dx": r*2.5
 		"dy": ".4em"
+		"id": (d,i) -> "label"+i
 	})
+	#.style("opacity", 0)
 
 
 
@@ -90,8 +102,19 @@ makeForceLayout = (data) ->
 			###
 
 			node.attr("transform", (d) ->
-				newx = d.x = Math.max(r, Math.min(width - r, d.x))
-				newy = d.y = Math.max(r, Math.min(width - r, d.y))
+				# If the node isn't in the bottom portion of the height
+				if d.y < height - (height * 0.25)
+
+					# If the user is an early user, make their node rise
+					if d.id < 25
+						d.y = d.y - .1
+
+					# Cause a node to fall in relation to how early the user joined
+					d.y = d.y + ( d.id / 400)
+
+				# Keep nodes from leaving viewing area
+				newx = d.x = Math.max(r+6, Math.min(width - r, d.x))
+				newy = d.y = Math.max(r+6, Math.min(height - 40, d.y))
 
 				"translate(" + newx + "," + newy + ")"
 
@@ -114,3 +137,16 @@ makeLinks = (data) ->
 			dn['links'].push({"source": index, "target": row.invited_by_id-1, "value": 1})
 	)
 	console.log dn.links
+
+allLabelsOn = false
+$("#labels-toggle").on("click", () ->
+	if allLabelsOn
+		$("#content").removeClass("labels-on")
+		$("#content").addClass("labels-off")
+
+		allLabelsOn = false
+	else
+		$("#content").addClass("labels-on")
+		$("#content").removeClass("labels-off")
+		allLabelsOn = true
+)
