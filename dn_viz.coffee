@@ -23,7 +23,7 @@ makeForceLayout = (data) ->
 	force = d3.layout.force()
 		.gravity(0.35)
 		.charge((d) ->
-			defaultCharge = -185
+			defaultCharge = -200
 			console.log (d)
 			if d.invited_by_id isnt null
 				if d.invited_by_id is 2
@@ -65,6 +65,10 @@ makeForceLayout = (data) ->
 		.attr("class", "node")
 		.attr("id", (d) -> d.id - 1)
 		.call(force.drag)
+		.on("click", (d) ->
+			#alert("CLICKED")
+			window.open("https://news.layervault.com/u/"+d.id)
+		)
 
 	label = node.append("g").attr("class", "label")
 	.append("svg:text")

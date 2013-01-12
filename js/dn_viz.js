@@ -8,7 +8,7 @@ dn.nodes = [];
 dn.links = [];
 
 makeDNViz = function() {
-  return d3.json("https://news.layervault.com/u/tree_flat.json", function(error, json) {
+  return d3.json("json/dn_tree.flat.r1.json", function(error, json) {
     var data;
     if (error) {
       console.warn("ERROR", error);
@@ -26,7 +26,7 @@ makeForceLayout = function(data) {
   makeLinks(data);
   force = d3.layout.force().gravity(0.35).charge(function(d) {
     var defaultCharge;
-    defaultCharge = -185;
+    defaultCharge = -200;
     console.log(d);
     if (d.invited_by_id !== null) {
       if (d.invited_by_id === 2) {
@@ -55,7 +55,9 @@ makeForceLayout = function(data) {
   });
   node = svg.selectAll(".node").data(data).enter().append("svg:g").attr("class", "node").attr("id", function(d) {
     return d.id - 1;
-  }).call(force.drag);
+  }).call(force.drag).on("click", function(d) {
+    return window.open("https://news.layervault.com/u/" + d.id);
+  });
   label = node.append("g").attr("class", "label").append("svg:text").text(function(d) {
     return d.display_name;
   }).attr({

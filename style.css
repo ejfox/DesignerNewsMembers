@@ -321,6 +321,9 @@ g:hover .label {
 .labels-off .label {
   opacity: 0;
 }
+circle {
+  cursor: pointer;
+}
 /*---------------------------------------------------
     LESS Elements 0.6
   ---------------------------------------------------
